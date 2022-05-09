@@ -27,9 +27,27 @@ const nameDisponibility = async (name) => {
   return false;
 };
 
+const updateProduct = async (id, name, quantity) => {
+  const queryI = 'UPDATE StoreManager.products SET name=?, quantity=? WHERE id=?';
+  const queryII = 'SELECT * FROM StoreManager.products WHERE id=?';
+  await connection.execute(queryI, [name, quantity, id]);
+  const [product] = await connection.execute(queryII, [id]);
+  return product[0];
+};
+
+const idCheck = async (id) => {
+  const query = 'SELECT * FROM StoreManager.products WHERE id=?';
+  const response = await connection.execute(query, [id]);
+  console.log(response[0]);
+  if (response[0].length === 0) return false;
+  return true;
+};
+
 module.exports = { 
   nameDisponibility,
   getAll,
   getById,
   insertProduct,
+  updateProduct,
+  idCheck,
  };

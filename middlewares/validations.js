@@ -45,9 +45,19 @@ if (!result) {
 next();
 };
 
+const idCheck = async (req, res, next) => {
+  const { id } = req.params;
+  const result = await productModel.idCheck(id);
+  if (!result) {
+    res.status(404).json({ message: 'Product not found' });
+  }
+  next();
+  };
+
 module.exports = {
   quantityValidation,
   nameValidation,
   saleValidation,
   nameDisponibility,
+  idCheck,
 }; 

@@ -14,5 +14,7 @@ router.get('/:id', rescue(productControllers.getById));
  rescue(productControllers.setProduct));
  
  router.put('/:id', validations.nameValidation,
- validations.quantityValidation, rescue(productControllers.setItem));
+ validations.quantityValidation,
+ validations.idCheck,
+ rescue(productControllers.attProduct));
 module.exports = router;

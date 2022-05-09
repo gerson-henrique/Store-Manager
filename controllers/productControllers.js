@@ -18,8 +18,16 @@ const setProduct = async (req, res) => {
  res.status(201).json(result);
 };
 
+const attProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
+  const result = await productServices.updateProduct(id, name, quantity);
+ res.status(200).json(result);
+};
+
 module.exports = {
   getAll,
   getById,
   setProduct,
+  attProduct,
 };
