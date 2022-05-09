@@ -1,5 +1,8 @@
 const express = require('express');
+const rescue = require('express-rescue');
 const salesModel = require('../../models/salesModel');
+const validations = require('../validations');
+const productControllers = require('../../controllers/productControllers');
 
 const router = express.Router();
 
@@ -15,5 +18,10 @@ router.get('/:id', async (req, res) => {
 
   res.status(200).json(response);
 });
+
+router.post('/', 
+validations.quantityValidation,
+validations.idValidation,
+ rescue(productControllers.setItem));
 
 module.exports = router;

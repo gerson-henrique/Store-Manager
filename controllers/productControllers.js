@@ -1,7 +1,5 @@
 const productServices = require('../services/productServices');
 
-const productValidations = require('../middlewares/productValidations');
-
 const getAll = async (_req, res) => {
 const response = await productServices.getAll();
 res.status(200).json(response);
