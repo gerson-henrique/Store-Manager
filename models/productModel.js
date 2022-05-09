@@ -38,9 +38,16 @@ const updateProduct = async (id, name, quantity) => {
 const idCheck = async (id) => {
   const query = 'SELECT * FROM StoreManager.products WHERE id=?';
   const response = await connection.execute(query, [id]);
-  console.log(response[0]);
   if (response[0].length === 0) return false;
   return true;
+};
+
+const deleteProduct = async (id) => {
+  const queryII = 'DELETE from StoreManager.products WHERE id=?';
+  const queryI = 'SELECT * FROM StoreManager.products WHERE id=?';
+  const [product] = await connection.execute(queryI, [id]);
+  await connection.execute(queryII, [id]);
+  return product[0];
 };
 
 module.exports = { 
@@ -50,4 +57,5 @@ module.exports = {
   insertProduct,
   updateProduct,
   idCheck,
+  deleteProduct,
  };
