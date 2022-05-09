@@ -12,8 +12,8 @@ const getById = async (req, res) => {
   res.status(200).json(response); 
 };
 
-const setItem = async (_req, res) => {
- res.status(200).json({ podCOladog: 'hmnn q papelão hein' });
+const setItem = async (req, res) => {
+ res.status(200).json({ podCOladog: req.body });
 };
 
 module.exports = {

@@ -19,14 +19,23 @@ if (name.length < 5) {
 next();
 };
 
-const idValidation = (req, res, next) => {
-  const { productId } = req.body;
-  if (!productId) res.status(400).json({ message: '"productId" is required' });
-  next();
-  };
+const saleValidation = (req, res, next) => {
+req.body.forEach((item) => {
+  if (!(item.productId)) res.status(400).json({ message: '"productId" is required' });
+  if (!item.quantity && item.quantity !== 0) {
+ res.status(400).json({ message:
+     '"quantity" is required' }); 
+}
+  if (item.quantity <= 0) {
+   res.status(422).json({ 
+    message: '"quantity" must be greater than or equal to 1' });
+  }
+});
+next();
+};
 
 module.exports = {
   quantityValidation,
   nameValidation,
-  idValidation,
+  saleValidation,
 }; 

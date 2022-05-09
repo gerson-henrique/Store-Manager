@@ -20,8 +20,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', 
-validations.quantityValidation,
-validations.idValidation,
+validations.saleValidation,
  rescue(productControllers.setItem));
+
+router.put('/:id', 
+validations.saleValidation,
+rescue(productControllers.setItem));
 
 module.exports = router;
