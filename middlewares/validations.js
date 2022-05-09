@@ -1,3 +1,5 @@
+const productModel = require('../models/productModel');
+
 const quantityValidation = (req, res, next) => {
   const { quantity } = req.body;
   if (!quantity && quantity !== 0) res.status(400).json({ message: '"quantity" is required' });
@@ -34,8 +36,18 @@ req.body.forEach((item) => {
 next();
 };
 
+const nameDisponibility = async (req, res, next) => {
+const { name } = req.body;
+const result = await productModel.nameDisponibility(name);
+if (!result) {
+  res.status(409).json({ message: 'Product already exists' });
+}
+next();
+};
+
 module.exports = {
   quantityValidation,
   nameValidation,
   saleValidation,
+  nameDisponibility,
 }; 

@@ -12,12 +12,14 @@ const getById = async (req, res) => {
   res.status(200).json(response); 
 };
 
-const setItem = async (req, res) => {
- res.status(200).json({ podCOladog: req.body });
+const setProduct = async (req, res) => {
+  const { name, quantity } = req.body;
+  const result = await productServices.insertProduct(name, quantity);
+ res.status(201).json(result);
 };
 
 module.exports = {
   getAll,
   getById,
-  setItem,
+  setProduct,
 };
