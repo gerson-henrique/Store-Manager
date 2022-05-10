@@ -25,6 +25,6 @@ validations.saleValidation,
 
 router.put('/:id', 
 validations.saleValidation,
-rescue(saleControllers.setItem));
+rescue(saleControllers.updateSale));
 
 module.exports = router;

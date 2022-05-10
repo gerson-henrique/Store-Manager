@@ -52,12 +52,20 @@ const addSale = async (body) => {
    };
 };
 
-const nameDisponibility = async (name) => {
-  const query = 'SELECT * FROM StoreManager.products WHERE name=?';
-  const response = await connection.execute(query, [name]);
-  console.log(response[0]);
-  if (response[0].length === 0) return true;
-  return false;
+const updateSale = async (body, id) => {
+  const corpo = await body;
+  const index = await id;
+  const queryI = 'DELETE from StoreManager.sales_products WHERE sale_id=?';
+  const queryIII = `INSERT INTO StoreManager.sales_products
+   (sale_id,product_id, quantity) VALUES (?,?,?)`;
+  await connection.execute(queryI, [index]);
+  corpo.forEach(async (sale) => {
+    await connection.execute(queryIII, [id, sale.productId, sale.quantity]);
+   });
+   return {
+     saleId: id,
+     itemUpdated: corpo,
+   };
 };
 
 const updateProduct = async (id, name, quantity) => {
@@ -75,20 +83,11 @@ const idCheck = async (id) => {
   return true;
 };
 
-const deleteProduct = async (id) => {
-  const queryII = 'DELETE from StoreManager.products WHERE id=?';
-  const queryI = 'SELECT * FROM StoreManager.products WHERE id=?';
-  const [product] = await connection.execute(queryI, [id]);
-  await connection.execute(queryII, [id]);
-  return product[0];
-};
-
 module.exports = { 
   getAll,
   getById,
-  deleteProduct,
   idCheck,
   updateProduct,
-  nameDisponibility,
+  updateSale,
   addSale,
 };
