@@ -40,7 +40,6 @@ const addSale = async (body) => {
   const queryII = 'SELECT * FROM StoreManager.sales';
   const queryIII = `INSERT INTO StoreManager.sales_products
    (sale_id,product_id, quantity) VALUES (?,?,?)`;
-  const queryIV = 'SELECT * FROM StoreManager.sales_products';
   await connection.execute(queryI);
   const [product] = await connection.execute(queryII);
   const { id } = product[product.length - 1];
