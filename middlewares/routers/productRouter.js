@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get('/', rescue(productControllers.getAll));
 router.get('/:id', rescue(productControllers.getById));
+
  router.post('/', validations.nameValidation, 
  validations.quantityValidation,
  validations.nameDisponibility,

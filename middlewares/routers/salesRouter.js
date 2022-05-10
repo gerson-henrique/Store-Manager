@@ -2,7 +2,7 @@ const express = require('express');
 const rescue = require('express-rescue');
 const salesModel = require('../../models/salesModel');
 const validations = require('../validations');
-const productControllers = require('../../controllers/productControllers');
+const saleControllers = require('../../controllers/saleControllers');
 
 const router = express.Router();
 
@@ -21,10 +21,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', 
 validations.saleValidation,
- rescue(productControllers.setItem));
+ rescue(saleControllers.addSale));
 
 router.put('/:id', 
 validations.saleValidation,
-rescue(productControllers.setItem));
+rescue(saleControllers.setItem));
 
 module.exports = router;

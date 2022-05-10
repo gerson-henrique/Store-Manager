@@ -1,4 +1,4 @@
-const productModel = require('../models/productModel');
+const productServices = require('../services/productServices');
 
 const quantityValidation = (req, res, next) => {
   const { quantity } = req.body;
@@ -38,7 +38,7 @@ next();
 
 const nameDisponibility = async (req, res, next) => {
 const { name } = req.body;
-const result = await productModel.nameDisponibility(name);
+const result = await productServices.nameDisponibility(name);
 if (!result) {
   res.status(409).json({ message: 'Product already exists' });
 }
@@ -47,7 +47,7 @@ next();
 
 const idCheck = async (req, res, next) => {
   const { id } = req.params;
-  const result = await productModel.idCheck(id);
+  const result = await productServices.idCheck(id);
   if (!result) {
     res.status(404).json({ message: 'Product not found' });
   }
