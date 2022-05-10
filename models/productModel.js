@@ -22,7 +22,6 @@ const insertProduct = async (name, quantity) => {
 const nameDisponibility = async (name) => {
   const query = 'SELECT * FROM StoreManager.products WHERE name=?';
   const response = await connection.execute(query, [name]);
-  console.log(response[0]);
   if (response[0].length === 0) return true;
   return false;
 };

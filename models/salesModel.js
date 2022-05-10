@@ -15,7 +15,6 @@ const getAll = async () => {
   on sales.id =  SP.sale_id
    ORDER BY sale_id ASC, product_Id ASC;`;
   const [sales] = await connection.execute(query);
-  // return sales.map(serialize);
   return sales;
 };
 
@@ -29,7 +28,6 @@ const getById = async (id) => {
   on sales.id =  SP.sale_id
   WHERE sales.id = ?;`;
   const [sale] = await connection.execute(query, [id]);
-  console.log(typeof (sale));
   return sale;
 };
 
@@ -68,14 +66,6 @@ const updateSale = async (body, id) => {
    };
 };
 
-const updateProduct = async (id, name, quantity) => {
-  const queryI = 'UPDATE StoreManager.products SET name=?, quantity=? WHERE id=?';
-  const queryII = 'SELECT * FROM StoreManager.products WHERE id=?';
-  await connection.execute(queryI, [name, quantity, id]);
-  const [product] = await connection.execute(queryII, [id]);
-  return product[0];
-};
-
 const idCheck = async (id) => {
   const query = 'SELECT * FROM StoreManager.products WHERE id=?';
   const response = await connection.execute(query, [id]);
@@ -87,7 +77,6 @@ module.exports = {
   getAll,
   getById,
   idCheck,
-  updateProduct,
   updateSale,
   addSale,
 };
